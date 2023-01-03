@@ -1,0 +1,22 @@
+.switchTodoList {
+    width: 500px;
+    margin-bottom: 40px;
+}
+
+.choose {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.switch {
+    margin-bottom: 20px;
+}
+
+.newTodo {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.buttonWrapper {
+    margin-top: 10px;
+}
