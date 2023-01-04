@@ -1,0 +1,48 @@
+.todoItem {
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+    cursor: pointer;
+    user-select: none;
+    word-wrap: break-word;
+    position: relative;
+    min-height: 30px;
+}
+
+.passed {
+    text-decoration: line-through;
+}
+
+.closeIcon {
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    right: 0px;
+}
+
+.status {
+    color: green;
+}
+
+.status.overdue {
+    color: red;
+}
+
+.statusBar {
+    margin-bottom: 10px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    margin-top: 30px;
+}
+
+.date {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding-right: 30px;
+}

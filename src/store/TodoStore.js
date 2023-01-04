@@ -2,7 +2,7 @@ import { autorun, makeAutoObservable } from "mobx";
 
 class TodoStore {
     constructor(options) {
-        console.log(options)
+        this.taskStatus = options.taskStatus;
         this.todoInput = options.todoInput;
         this.newTodoName = options.newTodoName;
         this.todos = options.todos;
@@ -45,7 +45,8 @@ class TodoStore {
             if (index - 1 >= 0) {
                 return keysTodos[index - 1]
             }
-            return null
+            if (index + 1 < keysTodos.length)
+                return keysTodos[index + 1]
         })()
         this.activeListName = afterName;
         delete this.todos[tempName]
@@ -73,7 +74,9 @@ class TodoStore {
             return isUnique;
         })()
         if (isUnique) {
-            this.todos[this.activeListName].push({ id: Math.random(), todo: this.todoInput, passed: false })
+            const date = new Date()
+            date.setDate(date.getDate() + 1)
+            this.todos[this.activeListName].push({ id: Math.random(), todo: this.todoInput, passed: false, dateTo: date })
             this.todoInput = ""
         }
     }
@@ -86,6 +89,17 @@ class TodoStore {
                     return ({ ...item, passed: true })
                 }
                 return item
+            })
+        }
+    }
+
+    setDateToFromTodo(id, dateTo) {
+        this.todos = {
+            ...this.todos, [this.activeListName]: this.todos[this.activeListName].map((todo) => {
+                if (todo.id === id) {
+                    todo.dateTo = dateTo;
+                }
+                return todo
             })
         }
     }
@@ -103,4 +117,4 @@ class TodoStore {
     }
 }
 
-export default new TodoStore({ todoInput: "", newTodoName: "", todos: JSON.parse(localStorage.getItem("todos") || "{}") });
+export default new TodoStore({ todoInput: "", newTodoName: "", taskStatus: "empty", todos: JSON.parse(localStorage.getItem("todos") || "{}") });

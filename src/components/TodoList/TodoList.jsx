@@ -7,6 +7,7 @@ import { cn } from "../../utils/cn"
 import { CloseOutlined } from "@ant-design/icons"
 import { SwitchTodoList } from "../SwitchTodoList/SwitchTodoList"
 import { useState } from "react"
+import { TodoItem } from "../TodoItem/TodoItem"
 
 export const TodoList = observer(() => {
 
@@ -45,14 +46,14 @@ export const TodoList = observer(() => {
                     </form>
                     <ul className={styles.todos}>
                         {!TodoStore.todos[TodoStore.activeListName].length && <p>TodoList is empty!</p>}
-                        {TodoStore.todos[TodoStore.activeListName].map(({ id, todo, passed }, i) => (
-                            <li
+                        {TodoStore.todos[TodoStore.activeListName].map(({ id, todo, passed, dateTo }, i) => (
+                            <TodoItem
+                                dateTo={dateTo}
                                 key={id}
-                                className={cn(styles.todoItem, passed && styles.passed)}
-                                onClick={() => { TodoStore.passTodo(id) }}>
-                                <p>{`${i + 1}. ${todo}`}</p>
-                                <div className={styles.closeIcon} onClick={() => { TodoStore.deleteTodo(id) }}><CloseOutlined /></div>
-                            </li>
+                                order={i + 1}
+                                id={id}
+                                todo={todo}
+                                passed={passed} />
                         ))}
                     </ul>
                 </>
