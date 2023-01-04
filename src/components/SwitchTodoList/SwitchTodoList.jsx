@@ -27,6 +27,8 @@ export const SwitchTodoList = observer(() => {
             <div className={styles.switch}>
                 <p className={styles.choose}>Choose List</p>
                 <Select
+                    placeholder="List is empty"
+                    disabled={!TodoStore.getTodoListsToSelectFormat().length}
                     value={TodoStore.activeListName ? TodoStore.activeListName : null}
                     defaultValue={getDefaultValue}
                     style={{ width: 500 }}

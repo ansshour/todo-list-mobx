@@ -6,8 +6,11 @@ import { Button } from "antd"
 import { cn } from "../../utils/cn"
 import { CloseOutlined } from "@ant-design/icons"
 import { SwitchTodoList } from "../SwitchTodoList/SwitchTodoList"
+import { useState } from "react"
 
 export const TodoList = observer(() => {
+
+    const [isCanRenameTodoList, setIsCanRenameTodoList] = useState(false)
 
     const addTodoSubmit = (e) => {
         e.preventDefault()
@@ -19,7 +22,16 @@ export const TodoList = observer(() => {
             <SwitchTodoList />
             {TodoStore.activeListName && (
                 <>
-                    <p className={styles.todoName}>{TodoStore.activeListName}</p>
+                    <div className={styles.top}>
+                        <div className={styles.name}>
+                            <Input
+                                onChange={e => { TodoStore.renameTodoList(e.target.value) }}
+                                value={TodoStore.activeListName}
+                                disabled={!isCanRenameTodoList} />
+                            <Button onClick={() => { setIsCanRenameTodoList(!isCanRenameTodoList) }}>Rename todo list</Button>
+                        </div>
+                        <Button onClick={() => { TodoStore.deleteTodoList() }}>Delete todo list</Button>
+                    </div>
                     <form
                         className={styles.addTodoWrapper}
                         onSubmit={e => addTodoSubmit(e)}>

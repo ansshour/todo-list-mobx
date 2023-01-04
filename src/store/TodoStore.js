@@ -14,7 +14,7 @@ class TodoStore {
 
     todos = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : {}
 
-    activeListName = Object.keys(this.todos).length ? Object.keys(this.todos)[0] : null
+    activeListName = Object.keys(this.todos)?.length ? Object.keys(this.todos)[0] : null
 
     setActiveList(name) {
         this.activeListName = name;
@@ -29,12 +29,36 @@ class TodoStore {
     }
 
     addNewTodoList() {
-        const inUniqueName = (() => !(this.newTodoName in this.todos))()
-        if (inUniqueName
-        ) {
+        const inUniqueName = !(this.newTodoName in this.todos)
+        if (inUniqueName) {
             this.todos = { ...this.todos, [this.newTodoName]: [] }
             this.activeListName = this.newTodoName
             this.newTodoName = ""
+        }
+    }
+
+    deleteTodoList() {
+        const tempName = this.activeListName;
+        const keysTodos = Object.keys(this.todos)
+        const afterName = (() => {
+            const index = keysTodos.findIndex(name => name === tempName);
+            if (index - 1 >= 0) {
+                return keysTodos[index - 1]
+            }
+            return null
+        })()
+        this.activeListName = afterName;
+        delete this.todos[tempName]
+    }
+
+    renameTodoList(newName) {
+        const tempTodos = JSON.parse(JSON.stringify(this.todos))
+        const activeListNameTemp = this.activeListName;
+        const itemsActiveTodo = tempTodos[activeListNameTemp]
+        if (newName) {
+            this.activeListName = newName;
+            delete this.todos[activeListNameTemp]
+            this.todos = { ...this.todos, [newName]: [...itemsActiveTodo] }
         }
     }
 

@@ -1,6 +1,5 @@
 .todoName {
     font-size: 20px;
-    margin-bottom: 20px;
 }
 
 .todo {
@@ -61,4 +60,18 @@
     padding: 10px;
     top: 0;
     right: 0px;
+}
+
+.top {
+    width: 500px;
+    justify-content: flex-start;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.name {
+    display: flex;
+    gap: 5px;
 }
