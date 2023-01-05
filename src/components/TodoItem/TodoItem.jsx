@@ -24,6 +24,7 @@ export const TodoItem = ({ id, todo, passed, order, dateTo }) => {
 
     useEffect(() => {
         isTaskFinish()
+        setInterval(isTaskFinish, 2000)
     }, [])
 
     return (
