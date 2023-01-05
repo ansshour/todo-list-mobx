@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 export const TodoItem = ({ id, todo, passed, order, dateTo }) => {
 
     const [status, setStatus] = useState("empty")
+    const [loop, setLoop] = useState()
 
     const isTaskFinish = () => {
         console.log(1)
@@ -24,7 +25,13 @@ export const TodoItem = ({ id, todo, passed, order, dateTo }) => {
 
     useEffect(() => {
         isTaskFinish()
-        setInterval(isTaskFinish, 2000)
+        setLoop(
+            setInterval(isTaskFinish, 2000)
+        );
+
+        return (() => {
+            clearInterval(loop)
+        })
     }, [])
 
     return (
