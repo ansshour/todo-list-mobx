@@ -101,7 +101,10 @@ class TodoStore {
         this.todos = {
             ...this.todos, [this.activeListName]: this.todos[this.activeListName].map((todo) => {
                 if (todo.id === id) {
-                    todo.dateTo = dateTo;
+                    if (dateTo) {
+                        todo.dateTo = dateTo;
+                    }
+                    return todo
                 }
                 return todo
             })

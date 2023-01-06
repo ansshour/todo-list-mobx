@@ -60,7 +60,7 @@ export const TodoItem = (todoValue) => {
                     <DatePicker
                         showTime={true}
                         defaultValue={dayjs(dateTo)}
-                        onChange={(date) => { TodoStore.setDateToFromTodo(id, date) }} />
+                        onChange={(date) => { console.log(date); TodoStore.setDateToFromTodo(id, date) }} />
                 </div>
             </div>
             <p
