@@ -8,6 +8,8 @@ import { CloseOutlined } from "@ant-design/icons"
 import { SwitchTodoList } from "../SwitchTodoList/SwitchTodoList"
 import { useState } from "react"
 import { TodoItem } from "../TodoItem/TodoItem"
+import { AnimatePresence, Reorder } from "framer-motion"
+import { toJS } from "mobx"
 
 export const TodoList = observer(() => {
 
@@ -44,18 +46,24 @@ export const TodoList = observer(() => {
                             <Button>Add</Button>
                         </div>
                     </form>
-                    <ul className={styles.todos}>
-                        {!TodoStore.todos[TodoStore.activeListName].length && <p>TodoList is empty!</p>}
-                        {TodoStore.todos[TodoStore.activeListName].map(({ id, todo, passed, dateTo }, i) => (
-                            <TodoItem
-                                dateTo={dateTo}
-                                key={id}
-                                order={i + 1}
-                                id={id}
-                                todo={todo}
-                                passed={passed} />
-                        ))}
-                    </ul>
+                    <Reorder.Group className={styles.todos} axis="y" values={TodoStore.todos[TodoStore.activeListName]} onReorder={value => TodoStore.setTodo(value)}>
+                        <AnimatePresence initial={false}>
+                            {!TodoStore.todos[TodoStore.activeListName].length && <p>TodoList is empty!</p>}
+                            {TodoStore.todos[TodoStore.activeListName].map((item, i) => {
+                                const { id, todo, passed, dateTo } = item;
+                                return (
+                                    <TodoItem
+                                        item={item}
+                                        dateTo={dateTo}
+                                        key={id}
+                                        order={i + 1}
+                                        id={id}
+                                        todo={todo}
+                                        passed={passed} />
+                                )
+                            })}
+                        </AnimatePresence>
+                    </Reorder.Group>
                 </>
             )}
         </div >

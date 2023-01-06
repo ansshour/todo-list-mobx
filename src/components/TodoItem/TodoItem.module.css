@@ -8,6 +8,7 @@
     word-wrap: break-word;
     position: relative;
     min-height: 30px;
+    background-color: white;
 }
 
 .passed {

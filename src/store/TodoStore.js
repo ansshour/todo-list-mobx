@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable } from "mobx";
+import { autorun, makeAutoObservable, toJS } from "mobx";
 
 class TodoStore {
     constructor(options) {
@@ -79,6 +79,10 @@ class TodoStore {
             this.todos[this.activeListName].push({ id: Math.random(), todo: this.todoInput, passed: false, dateTo: date })
             this.todoInput = ""
         }
+    }
+
+    setTodo(todos) {
+        this.todos[this.activeListName] = todos;
     }
 
     passTodo(id) {
